@@ -8,11 +8,7 @@ cors = CORS(app, origins='*')
 def users():
   return jsonify(
     {
-      "users": [
-        'sam',
-        'tony',
-        'jack'
-      ]
+      
     }
   )
 
