@@ -1,5 +1,7 @@
 import "./App.css";
 import BirthForm from "./components/BirthForm";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 
 function App() {
   return (
