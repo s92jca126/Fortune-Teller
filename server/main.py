@@ -1,18 +1,19 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from routes import bp
 
-app = Flask(__name__)
-cors = CORS(app, origins='*')
 
-@app.route('/submit', methods=['POST'])
-def submit_form():
-    data = request.get_json()  # Get JSON data from the request
-    date_of_birth = data.get('dateOfBirth')
-    time_of_birth = data.get('timeOfBirth')
-    place_of_birth = data.get('placeOfBirth')
-    
-    print(f"Received data: {data}")  # For debugging
-    return jsonify({"message": "Form data received successfully!", "data": data}), 200
+
+def create_app():
+  app = Flask(__name__)
+  cors = CORS(app, origins='*')
+  app.register_blueprint(bp)
+  return app
+
+app = create_app()
+
 
 if __name__ == "__main__":
   app.run(debug=True, port=8080)
+
+
