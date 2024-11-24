@@ -4,7 +4,7 @@ from requests import get_prediction
 
 bp = Blueprint("main", __name__)
 
-@bp.route("/predict", methods=["POST"])
+@bp.route("/submit", methods=["POST"])
 def predict():
     try:
         # Ensure request contains JSON data
