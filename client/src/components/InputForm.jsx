@@ -69,6 +69,7 @@ function InputForm() {
             className="form-control"
             value={formData.dateOfBirth}
             onChange={handleChange}
+            required
           />
         </div>
         <div className="mb-3">
@@ -82,6 +83,7 @@ function InputForm() {
             className="form-control"
             value={formData.timeOfBirth}
             onChange={handleChange}
+            required
           />
         </div>
         <div className="mb-3">
@@ -96,6 +98,7 @@ function InputForm() {
             value={formData.placeOfBirth}
             onChange={handleChange}
             placeholder="Enter city or location"
+            required
           />
         </div>
         <div className="mb-3">
@@ -108,6 +111,7 @@ function InputForm() {
             className="form-select"
             value={formData.gender}
             onChange={handleChange}
+            required
           >
             <option value="">Select Gender</option>
             <option value="male">Male</option>
@@ -126,6 +130,7 @@ function InputForm() {
             className="form-control"
             value={formData.question}
             onChange={handleChange}
+            required
             placeholder="What does my future hold?"
           ></textarea>
         </div>
