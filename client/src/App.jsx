@@ -1,19 +1,17 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import BirthForm from "./components/BirthForm";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import BirthForm from "./components/BirthForm";
+import PredictionResult from "./components/PredictionResult";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Fortune Teller</h1>
-      </header>
-      <main>
-        <p>Please input your birth information below.</p>
-        <BirthForm />
-      </main>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<BirthForm />} />
+        <Route path="/result" element={<PredictionResult />} />
+      </Routes>
+    </Router>
   );
 }
 
