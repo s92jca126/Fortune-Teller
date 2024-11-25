@@ -1,16 +1,21 @@
 # Fortune-Teller
 
-## Client Side Setup/Start
+## Run Client
 
-- npx create-vite
-- cd client
-- npm install
-- npm run dev (to start the client)
-- npm install axios
+```shell
+❯ cd client
+❯ npm install
+❯ npm run dev
+```
 
-## Server Side Python Virtual Environment Setup
+## Run Server
 
-- python3 -m venv venv
-- source venv/bin/activate
-- pip3 install -r requirements.txt
-- python3 main.py (to run the server)
+set up `.env` first using `.env.example`
+
+```shell
+❯ cd server
+❯ python3 -m venv venv
+❯ source venv/bin/activate
+❯ pip3 install -r requirements.txt
+❯ python3 main.py
+```
