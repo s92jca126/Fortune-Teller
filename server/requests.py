@@ -1,6 +1,6 @@
-from flask import current_app
 from openai import OpenAI
-
+from dotenv import load_dotenv
+import os
 
 def get_prediction(user_data, question):
     client = OpenAI(
@@ -21,13 +21,14 @@ def get_prediction(user_data, question):
     response = completion.choices[0].message.content
     return response
 
-# Load the API key from a local file
-def load_api_key():
-    try:
-        with open("api_key.txt", "r") as file:
-            return file.read().strip()
-    except FileNotFoundError:
-        raise FileNotFoundError(f"API key not found")
-    except Exception as e:
-        raise Exception(f"An error occurred while reading the API key: {str(e)}")
+# Load environment variables from .env file
+load_dotenv()
 
+def load_api_key():
+    """
+    Loads the API key from an environment variable.
+    """
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        raise ValueError("OPENAI_API_KEY not found in environment variables.")
+    return api_key

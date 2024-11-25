@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function BirthForm() {
@@ -6,45 +7,56 @@ function BirthForm() {
     dateOfBirth: "",
     timeOfBirth: "",
     placeOfBirth: "",
-    gender: "", // Add gender to the form state
+    gender: "",
   });
-  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const fetchAPI = async () => {
-    const response = await axios.get("http://127.0.0.1:8080/answer");
-    console.log(response.data);
-    setMessage(response.data);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Data Submitted:", formData);
+
+    // Extract fields from formData
+    const { dateOfBirth, timeOfBirth, placeOfBirth, gender } = formData;
+
+    // Format the date and create the string
+    const dateTime = new Date(`${dateOfBirth}T${timeOfBirth}`);
+    const formattedDateTime = dateTime.toLocaleString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+    });
+    const birthDataStr = `A ${gender} born on ${formattedDateTime}, in ${placeOfBirth}`;
+    console.log("birthData:", birthDataStr);
 
     try {
-      // Send form data to Flask backend
-      const response = await axios.post("http://127.0.0.1:8080/submit", formData);
-      console.log("Response from server:", response.data);
-      alert("Form submitted successfully!");
+      // Send form data to backend
+      const response = await axios.post("http://127.0.0.1:8080/submit", {
+        birth_data: birthDataStr,
+        question: "What will my career look like next year?", // TODO: KAN-14
+      });
+
+      console.log("Server response:", response.data);
+
+      // Navigate to the result page with prediction data as state
+      navigate("/result", { state: { prediction: response.data.prediction } });
     } catch (error) {
       console.error("Error submitting form:", error);
-      alert("Failed to submit form. Please try again.");
     }
   };
-
-  useEffect(() => {
-    fetchAPI();
-  }, []);
 
   return (
     <>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="dateOfBirth" className="form-label">Date of Birth:</label>
+          <label htmlFor="dateOfBirth" className="form-label">
+            Date of Birth:
+          </label>
           <input
             type="date"
             id="dateOfBirth"
@@ -55,7 +67,9 @@ function BirthForm() {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="timeOfBirth" className="form-label">Time of Birth:</label>
+          <label htmlFor="timeOfBirth" className="form-label">
+            Time of Birth:
+          </label>
           <input
             type="time"
             id="timeOfBirth"
@@ -66,7 +80,9 @@ function BirthForm() {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="placeOfBirth" className="form-label">Place of Birth:</label>
+          <label htmlFor="placeOfBirth" className="form-label">
+            Place of Birth:
+          </label>
           <input
             type="text"
             id="placeOfBirth"
@@ -78,7 +94,9 @@ function BirthForm() {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="gender" className="form-label">Gender:</label>
+          <label htmlFor="gender" className="form-label">
+            Gender:
+          </label>
           <select
             id="gender"
             name="gender"
@@ -93,9 +111,10 @@ function BirthForm() {
             <option value="prefer-not-to-say">Prefer Not to Say</option>
           </select>
         </div>
-        <button type="submit" className="btn btn-outline-info">Submit</button>
+        <button type="submit" className="btn btn-outline-info">
+          Submit
+        </button>
       </form>
-      {message && <p className="mt-3">{message}</p>}
     </>
   );
 }
