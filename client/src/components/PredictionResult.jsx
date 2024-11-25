@@ -1,17 +1,21 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
+import rehypeHighlight from "rehype-highlight";
 
 function PredictionResult() {
   const location = useLocation();
-  const navigate = useNavigate();
   const { prediction } = location.state || {};
 
   return (
     <div className="container mt-5">
       <h1>Prediction Result</h1>
       {prediction ? (
-        <div>
-          <p>{prediction}</p>
+        <div className="text-start">
+          {" "}
+          <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
+            {prediction}
+          </ReactMarkdown>
         </div>
       ) : (
         <div className="alert alert-danger">

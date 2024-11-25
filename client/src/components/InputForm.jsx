@@ -8,8 +8,9 @@ function InputForm() {
     timeOfBirth: "",
     placeOfBirth: "",
     gender: "",
-    question: "",
+    question: "What does my future hold?",
   });
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -19,6 +20,7 @@ function InputForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     // Extract fields from formData
     const { dateOfBirth, timeOfBirth, placeOfBirth, gender, question } =
@@ -44,9 +46,12 @@ function InputForm() {
       });
 
       // Navigate to the result page with prediction data as state
-      navigate("/result", { state: { prediction: response.data.prediction } });
+      navigate("/result", {
+        state: { prediction: response.data.prediction, loading: false },
+      });
     } catch (error) {
       console.error("Error submitting form:", error);
+      setLoading(false);
     }
   };
 
@@ -121,11 +126,11 @@ function InputForm() {
             className="form-control"
             value={formData.question}
             onChange={handleChange}
-            placeholder="Ask your question here, e.g., What does my future hold?"
+            placeholder="What does my future hold?"
           ></textarea>
         </div>
         <button type="submit" className="btn btn-outline-info">
-          Submit
+          {loading ? "Submitting..." : "Submit"}
         </button>
       </form>
     </>
