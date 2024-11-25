@@ -32,7 +32,7 @@ function BirthForm() {
       minute: "numeric",
     });
     const birthDataStr = `A ${gender} born on ${formattedDateTime}, in ${placeOfBirth}`;
-    console.log("birthData:", birthDataStr);
+    // console.log("birthData:", birthDataStr);
 
     try {
       // Send form data to backend
@@ -40,8 +40,6 @@ function BirthForm() {
         birth_data: birthDataStr,
         question: "What will my career look like next year?", // TODO: KAN-14
       });
-
-      console.log("Server response:", response.data);
 
       // Navigate to the result page with prediction data as state
       navigate("/result", { state: { prediction: response.data.prediction } });
