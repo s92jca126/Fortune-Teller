@@ -2,12 +2,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function BirthForm() {
+function InputForm() {
   const [formData, setFormData] = useState({
     dateOfBirth: "",
     timeOfBirth: "",
     placeOfBirth: "",
     gender: "",
+    question: "",
   });
   const navigate = useNavigate();
 
@@ -20,7 +21,9 @@ function BirthForm() {
     e.preventDefault();
 
     // Extract fields from formData
-    const { dateOfBirth, timeOfBirth, placeOfBirth, gender } = formData;
+    const { dateOfBirth, timeOfBirth, placeOfBirth, gender, question } =
+      formData;
+    console.log("formData:", formData);
 
     // Format the date and create the string
     const dateTime = new Date(`${dateOfBirth}T${timeOfBirth}`);
@@ -32,13 +35,12 @@ function BirthForm() {
       minute: "numeric",
     });
     const birthDataStr = `A ${gender} born on ${formattedDateTime}, in ${placeOfBirth}`;
-    // console.log("birthData:", birthDataStr);
 
     try {
       // Send form data to backend
       const response = await axios.post("http://127.0.0.1:8080/submit", {
         birth_data: birthDataStr,
-        question: "What will my career look like next year?", // TODO: KAN-14
+        question: question,
       });
 
       // Navigate to the result page with prediction data as state
@@ -109,6 +111,19 @@ function BirthForm() {
             <option value="prefer-not-to-say">Prefer Not to Say</option>
           </select>
         </div>
+        <div className="mb-3">
+          <label htmlFor="question" className="form-label">
+            Question:
+          </label>
+          <textarea
+            id="question"
+            name="question"
+            className="form-control"
+            value={formData.question}
+            onChange={handleChange}
+            placeholder="Ask your question here, e.g., What does my future hold?"
+          ></textarea>
+        </div>
         <button type="submit" className="btn btn-outline-info">
           Submit
         </button>
@@ -117,4 +132,4 @@ function BirthForm() {
   );
 }
 
-export default BirthForm;
+export default InputForm;

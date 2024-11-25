@@ -2,6 +2,6 @@
 
 ## Frontend Tests
 
-- `BirthForm.test.js`:
-  - Verifies that the `BirthForm` component renders all form fields and the submit button.
+- `InputForm.test.js`:
+  - Verifies that the `InputForm` component renders all form fields and the submit button.
   - Ensures form functionality works correctly (updating input values, form submission, etc.).
