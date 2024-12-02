@@ -21,12 +21,11 @@ function InputForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+  
     // Extract fields from formData
-    const { dateOfBirth, timeOfBirth, placeOfBirth, gender, question } =
-      formData;
+    const { dateOfBirth, timeOfBirth, placeOfBirth, gender, question } = formData;
     console.log("formData:", formData);
-
+  
     // Format the date and create the string
     const dateTime = new Date(`${dateOfBirth}T${timeOfBirth}`);
     const formattedDateTime = dateTime.toLocaleString("en-US", {
@@ -37,14 +36,17 @@ function InputForm() {
       minute: "numeric",
     });
     const birthDataStr = `A ${gender} born on ${formattedDateTime}, in ${placeOfBirth}`;
-
+  
     try {
+      // Save birthDataStr to localStorage for later use
+      localStorage.setItem("birthData", birthDataStr);
+  
       // Send form data to backend
       const response = await axios.post("http://127.0.0.1:8080/submit", {
         birth_data: birthDataStr,
         question: question,
       });
-
+  
       // Navigate to the result page with prediction data as state
       navigate("/result", {
         state: { prediction: response.data.prediction, loading: false },
@@ -54,6 +56,7 @@ function InputForm() {
       setLoading(false);
     }
   };
+  
 
   return (
     <>
