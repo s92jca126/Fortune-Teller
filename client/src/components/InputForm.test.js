@@ -1,9 +1,14 @@
 import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import InputForm from "./InputForm";
 
 describe("InputForm Component", () => {
   it("renders all form fields and the submit button", () => {
-    render(<InputForm />);
+    render(
+      <MemoryRouter>
+        <InputForm />
+      </MemoryRouter>
+    );
 
     // Check if all form fields are rendered
     expect(screen.getByLabelText(/Date of Birth:/i)).toBeInTheDocument();
