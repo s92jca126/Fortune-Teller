@@ -22,7 +22,10 @@ function PredictionResult() {
     if (!localBirthData) {
       setMessages((prevMessages) => [
         ...prevMessages,
-        { text: "Birth data is missing. Please provide your birth information.", sender: "bot" },
+        {
+          text: "Birth data is missing. Please provide your birth information.",
+          sender: "bot",
+        },
       ]);
     }
   }, [localBirthData]);
@@ -73,7 +76,10 @@ function PredictionResult() {
       console.error("Failed to get a response:", error);
       setMessages((prevMessages) => [
         ...prevMessages,
-        { text: `Error: ${error.response?.data?.error || "Unknown error."}`, sender: "bot" },
+        {
+          text: `Error: ${error.response?.data?.error || "Unknown error."}`,
+          sender: "bot",
+        },
       ]);
     } finally {
       setIsLoading(false);
@@ -91,7 +97,10 @@ function PredictionResult() {
 
     setMessages((prevMessages) => [
       ...prevMessages,
-      { text: "Thank you! Your birth data has been updated. Ask me anything now!", sender: "bot" },
+      {
+        text: "Thank you! Your birth data has been updated. Ask me anything now!",
+        sender: "bot",
+      },
     ]);
   };
 
@@ -117,7 +126,7 @@ function PredictionResult() {
           onChange={handleInputChange}
           placeholder={
             localBirthData
-              ? "Ask BaZi a question..."
+              ? "Message AI Fortune Teller 🔮"
               : "Please provide your birth data..."
           }
           disabled={isLoading}
