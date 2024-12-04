@@ -10,7 +10,7 @@ def get_prediction(user_data, question):
         model="gpt-4o-mini",
         messages=[
             {"role": "system",
-             "content": "You are a fortune-teller that uses Chinese Ba-Zi system to make predictions."},
+             "content": "Acting as a fortune-teller that uses Chinese Ba-Zi system to make predictions. The user will provide their birthdate, location, gender, other optional details and their questions. Analyze and make prediction response to their question."},
             {
                 "role": "user",
                 "content": user_data + question
