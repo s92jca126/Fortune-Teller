@@ -8,6 +8,7 @@ services:
     volumes:
       - ./server:/app
     environment:
+      - FLASK_APP=main.py
       - FLASK_ENV=development
   client:
     build:
@@ -15,4 +16,5 @@ services:
     ports:
       - "5173:5173"
     environment:
+      - VITE_PORT=5173
       - VITE_API_URL=http://localhost:8080
