@@ -5,7 +5,10 @@ from custom_requests import get_prediction
 # Define the Blueprint
 bp = Blueprint("main", __name__)
 
-# Route: Prediction Endpoint
+@bp.route("/")
+def home():
+    return "Backend is running!", 200
+
 @bp.route("/submit", methods=["POST"])
 def predict():
     try:
