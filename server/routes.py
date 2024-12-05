@@ -1,9 +1,11 @@
-# backend/app/routes.py
 from flask import Blueprint, request, jsonify
-from requests import get_prediction
+from firebase_admin import auth
+from custom_requests import get_prediction
 
+# Define the Blueprint
 bp = Blueprint("main", __name__)
 
+# Route: Prediction Endpoint
 @bp.route("/submit", methods=["POST"])
 def predict():
     try:
@@ -40,6 +42,47 @@ def predict():
         return jsonify({"error": f"Unexpected server error: {str(e)}"}), 500
 
 
+# Route: Firebase Authentication Signup
+@bp.route("/signup", methods=["POST"])
+def signup():
+    """
+    Handles user signup with Firebase Authentication.
+    """
+    data = request.json
+    email = data.get("email")
+    password = data.get("password")
+
+    if not email or not password:
+        return jsonify({"error": "Email and password are required"}), 400
+
+    try:
+        # Create a new user in Firebase Authentication
+        user = auth.create_user(email=email, password=password)
+        return jsonify({"uid": user.uid, "email": user.email}), 201
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+# Route: Firebase Authentication Login (Token Verification)
+@bp.route("/login", methods=["POST"])
+def login():
+    """
+    Verifies a Firebase Authentication token sent by the client for login.
+    """
+    token = request.json.get("token")
+    if not token:
+        return jsonify({"error": "Token is required"}), 400
+
+    try:
+        # Verify the Firebase ID token
+        decoded_token = auth.verify_id_token(token)
+        uid = decoded_token["uid"]  # Extract the user ID from the token
+        return jsonify({"uid": uid}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 401
+
+
+# Helper Function: Validate and Clean Input Data
 def validate_input(data):
     """
     Validates and cleans input data for the prediction endpoint.
