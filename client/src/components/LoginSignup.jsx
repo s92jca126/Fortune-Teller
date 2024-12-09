@@ -1,7 +1,10 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from 'firebase/auth';
 import { auth } from '../../firebaseConfig';
 
 const LoginSignup = () => {
@@ -16,11 +19,19 @@ const LoginSignup = () => {
       let userCredential;
       if (isSignup) {
         // Sign up
-        userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        userCredential = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
         alert('Signup successful!');
       } else {
         // Log in
-        userCredential = await signInWithEmailAndPassword(auth, email, password);
+        userCredential = await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
         alert('Login successful!');
       }
 
@@ -34,6 +45,7 @@ const LoginSignup = () => {
 
   return (
     <div style={{ textAlign: 'center', margin: '50px' }}>
+      <h1 className="text-center mt-4">AI Fortune Teller🔥</h1>
       <h1>{isSignup ? 'Sign Up' : 'Log In'}</h1>
       <div>
         <input
@@ -78,7 +90,9 @@ const LoginSignup = () => {
             cursor: 'pointer',
           }}
         >
-          {isSignup ? 'Already have an account? Log In' : "Don't have an account? Sign Up"}
+          {isSignup
+            ? 'Already have an account? Log In'
+            : "Don't have an account? Sign Up"}
         </button>
       </div>
     </div>
