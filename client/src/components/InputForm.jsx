@@ -45,7 +45,7 @@ function InputForm() {
       localStorage.setItem('birthData', birthDataStr);
 
       // Send form data to backend
-      const response = await axios.post('http://127.0.0.1:8080/submit', {
+      const response = await axios.post('http://64.23.163.14:8080/submit', {
         birth_data: birthDataStr,
         question: question,
       });
@@ -81,97 +81,105 @@ function InputForm() {
           repeat={Infinity}
         />
       </h1>
-      <div className="container text-center">
-        <div className="row">
-          <p>
-            Please provide your birth details and question to uncover your
-            future.
-          </p>
-          <div className="col-md-8">
-            <form onSubmit={handleSubmit}>
-              <div className="mb-3">
-                <label htmlFor="dateOfBirth" className="form-label">
-                  <span>Date of Birth:</span>
-                </label>
-                <input
-                  type="date"
-                  id="dateOfBirth"
-                  name="dateOfBirth"
-                  className="form-control"
-                  value={formData.dateOfBirth}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="timeOfBirth" className="form-label">
-                  Time of Birth:
-                </label>
-                <input
-                  type="time"
-                  id="timeOfBirth"
-                  name="timeOfBirth"
-                  className="form-control"
-                  value={formData.timeOfBirth}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="placeOfBirth" className="form-label">
-                  Place of Birth:
-                </label>
-                <input
-                  type="text"
-                  id="placeOfBirth"
-                  name="placeOfBirth"
-                  className="form-control"
-                  value={formData.placeOfBirth}
-                  onChange={handleChange}
-                  placeholder="Enter city or location"
-                  required
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="gender" className="form-label">
-                  Gender:
-                </label>
-                <select
-                  id="gender"
-                  name="gender"
-                  className="form-select"
-                  value={formData.gender}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="">Select Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="non-binary">Non-Binary</option>
-                  <option value="prefer-not-to-say">Prefer Not to Say</option>
-                </select>
-              </div>
-              <div className="mb-3">
-                <label htmlFor="question" className="form-label">
-                  Question:
-                </label>
-                <textarea
-                  id="question"
-                  name="question"
-                  className="form-control"
-                  value={formData.question}
-                  onChange={handleChange}
-                  required
-                  placeholder="What does my future hold?"
-                ></textarea>
-              </div>
-              <button type="submit" className="btn btn-outline-info">
-                {loading ? 'Submitting...' : 'Submit'}
-              </button>
-            </form>
-          </div>
-        </div>
+      <div
+        style={{
+          fontSize: '1.2rem',
+          fontWeight: '600',
+          color: '#eaeaea',
+          textAlign: 'center',
+          marginBottom: '20px',
+          lineHeight: '1.6',
+          letterSpacing: '0.5px',
+        }}
+        className="initial"
+      >
+        <p>
+          Please provide your birth details and question to uncover your future.
+        </p>
       </div>
+      <form className="submitForm" onSubmit={handleSubmit}>
+        <div className="mb-3">
+          <label htmlFor="dateOfBirth" className="form-label">
+            <span>Date of Birth:</span>
+          </label>
+          <input
+            type="date"
+            id="dateOfBirth"
+            name="dateOfBirth"
+            className="form-control"
+            value={formData.dateOfBirth}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="timeOfBirth" className="form-label">
+            Time of Birth:
+          </label>
+          <input
+            type="time"
+            id="timeOfBirth"
+            name="timeOfBirth"
+            className="form-control"
+            value={formData.timeOfBirth}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="placeOfBirth" className="form-label">
+            Place of Birth:
+          </label>
+          <input
+            type="text"
+            id="placeOfBirth"
+            name="placeOfBirth"
+            className="form-control"
+            value={formData.placeOfBirth}
+            onChange={handleChange}
+            placeholder="Enter city or location"
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="gender" className="form-label">
+            Gender:
+          </label>
+          <select
+            id="gender"
+            name="gender"
+            className="form-select"
+            value={formData.gender}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="non-binary">Non-Binary</option>
+            <option value="prefer-not-to-say">Prefer Not to Say</option>
+          </select>
+        </div>
+        <div className="mb-3">
+          <label htmlFor="question" className="form-label">
+            Question:
+          </label>
+          <textarea
+            id="question"
+            name="question"
+            className="form-control"
+            value={formData.question}
+            onChange={handleChange}
+            required
+            placeholder="What does my future hold?"
+          ></textarea>
+        </div>
+        <div className="submitButton">
+          <button type="submit" className="btn btn-outline-info">
+            {loading ? 'Submitting...' : 'Submit'}
+          </button>
+        </div>
+      </form>
     </>
   );
 }
