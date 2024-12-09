@@ -108,17 +108,15 @@
   }
 }
 
-/* Adjust paragraphs and bullets alignment */
 .chat-container p,
 .chat-container li {
   text-align: left;
 }
 
-/* Optional: Ensure lists have proper spacing */
 .chat-container ul {
-  padding-left: 20px; /* Indentation for bullet points */
+  padding-left: 20px;
 }
 
 .chat-container ol {
-  padding-left: 20px; /* Indentation for numbered lists */
+  padding-left: 20px;
 }
