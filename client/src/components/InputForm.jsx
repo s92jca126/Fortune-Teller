@@ -45,7 +45,7 @@ function InputForm() {
       localStorage.setItem('birthData', birthDataStr);
 
       // Send form data to backend
-      const response = await axios.post('http://64.23.163.14:8080/submit', {
+      const response = await axios.post("http://64.23.163.14:8080/submit", {
         birth_data: birthDataStr,
         question: question,
       });
