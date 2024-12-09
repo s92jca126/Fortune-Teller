@@ -3,7 +3,7 @@ from flask_cors import CORS
 from firebase_admin import credentials, initialize_app
 
 # Initialize Firebase Admin SDK
-cred = credentials.Certificate("server/config/serviceAccountKey.json")
+cred = credentials.Certificate("config/serviceAccountKey.json")
 initialize_app(cred)
 
 # Blueprint import

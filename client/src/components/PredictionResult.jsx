@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import ReactMarkdown from "react-markdown";
-import rehypeHighlight from "rehype-highlight";
-import axios from "axios";
-import "./PredictionResult.css";
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
+import rehypeHighlight from 'rehype-highlight';
+import axios from 'axios';
+import './PredictionResult.css';
 
 function PredictionResult() {
   const location = useLocation();
   const { prediction, birthDataStr } = location.state || {};
 
   const [messages, setMessages] = useState(
-    prediction ? [{ text: prediction, sender: "bot" }] : []
+    prediction ? [{ text: prediction, sender: 'bot' }] : []
   );
-  const [inputText, setInputText] = useState("");
+  const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [localBirthData, setLocalBirthData] = useState(
-    birthDataStr || localStorage.getItem("birthData")
+    birthDataStr || localStorage.getItem('birthData')
   );
 
   useEffect(() => {
@@ -23,8 +23,8 @@ function PredictionResult() {
       setMessages((prevMessages) => [
         ...prevMessages,
         {
-          text: "Birth data is missing. Please provide your birth information.",
-          sender: "bot",
+          text: 'Birth data is missing. Please provide your birth information.',
+          sender: 'bot',
         },
       ]);
     }
@@ -32,7 +32,7 @@ function PredictionResult() {
 
   // Load chat history from localStorage
   useEffect(() => {
-    const storedMessages = localStorage.getItem("chatMessages");
+    const storedMessages = localStorage.getItem('chatMessages');
     if (storedMessages) {
       setMessages(JSON.parse(storedMessages));
     }
@@ -40,7 +40,7 @@ function PredictionResult() {
 
   // Save chat history to localStorage
   useEffect(() => {
-    localStorage.setItem("chatMessages", JSON.stringify(messages));
+    localStorage.setItem('chatMessages', JSON.stringify(messages));
   }, [messages]);
 
   const handleInputChange = (e) => {
@@ -54,9 +54,9 @@ function PredictionResult() {
     // Add user's message to chat
     setMessages((prevMessages) => [
       ...prevMessages,
-      { text: inputText, sender: "user" },
+      { text: inputText, sender: 'user' },
     ]);
-    setInputText("");
+    setInputText('');
     setIsLoading(true);
 
     try {
@@ -70,15 +70,15 @@ function PredictionResult() {
       const botResponse = response.data.prediction;
       setMessages((prevMessages) => [
         ...prevMessages,
-        { text: botResponse, sender: "bot" },
+        { text: botResponse, sender: 'bot' },
       ]);
     } catch (error) {
-      console.error("Failed to get a response:", error);
+      console.error('Failed to get a response:', error);
       setMessages((prevMessages) => [
         ...prevMessages,
         {
-          text: `Error: ${error.response?.data?.error || "Unknown error."}`,
-          sender: "bot",
+          text: `Error: ${error.response?.data?.error || 'Unknown error.'}`,
+          sender: 'bot',
         },
       ]);
     } finally {
@@ -92,14 +92,14 @@ function PredictionResult() {
 
     // Save birth data and clear input
     setLocalBirthData(inputText);
-    localStorage.setItem("birthData", inputText);
-    setInputText("");
+    localStorage.setItem('birthData', inputText);
+    setInputText('');
 
     setMessages((prevMessages) => [
       ...prevMessages,
       {
-        text: "Thank you! Your birth data has been updated. Ask me anything now!",
-        sender: "bot",
+        text: 'Thank you! Your birth data has been updated. Ask me anything now!',
+        sender: 'bot',
       },
     ]);
   };
@@ -126,13 +126,13 @@ function PredictionResult() {
           onChange={handleInputChange}
           placeholder={
             localBirthData
-              ? "Message AI Fortune Teller 🔮"
-              : "Please provide your birth data..."
+              ? 'Message AI Fortune Teller 🔮'
+              : 'Please provide your birth data...'
           }
           disabled={isLoading}
         />
         <button type="submit" disabled={isLoading || !inputText.trim()}>
-          {isLoading ? "Loading..." : "Send"}
+          {isLoading ? 'Loading...' : 'Send'}
         </button>
       </form>
     </div>

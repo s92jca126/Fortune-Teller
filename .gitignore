@@ -5,3 +5,4 @@
 /server/venv
 /server/__pycache__
 server/api_key.txt
+server/config/serviceAccountKey.json
