@@ -1,16 +1,19 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import './InputForm.css';
-import { TypeAnimation } from 'react-type-animation';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import "./InputForm.css";
+import { TypeAnimation } from "react-type-animation";
+import getBaseURL from "../utils/getBaseURL";
+
+const baseURL = getBaseURL();
 
 function InputForm() {
   const [formData, setFormData] = useState({
-    dateOfBirth: '',
-    timeOfBirth: '',
-    placeOfBirth: '',
-    gender: '',
-    question: 'What does my future hold?',
+    dateOfBirth: "",
+    timeOfBirth: "",
+    placeOfBirth: "",
+    gender: "",
+    question: "What does my future hold?",
   });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -27,35 +30,35 @@ function InputForm() {
     // Extract fields from formData
     const { dateOfBirth, timeOfBirth, placeOfBirth, gender, question } =
       formData;
-    console.log('formData:', formData);
+    console.log("formData:", formData);
 
     // Format the date and create the string
     const dateTime = new Date(`${dateOfBirth}T${timeOfBirth}`);
-    const formattedDateTime = dateTime.toLocaleString('en-US', {
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
+    const formattedDateTime = dateTime.toLocaleString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "numeric",
     });
     const birthDataStr = `A ${gender} born on ${formattedDateTime}, in ${placeOfBirth}`;
 
     try {
       // Save birthDataStr to localStorage for later use
-      localStorage.setItem('birthData', birthDataStr);
+      localStorage.setItem("birthData", birthDataStr);
 
       // Send form data to backend
-      const response = await axios.post("http://64.23.163.14:8080/submit", {
+      const response = await axios.post(`${baseURL}/submit`, {
         birth_data: birthDataStr,
         question: question,
       });
 
       // Navigate to the result page with prediction data as state
-      navigate('/result', {
+      navigate("/result", {
         state: { prediction: response.data.prediction, loading: false },
       });
     } catch (error) {
-      console.error('Error submitting form:', error);
+      console.error("Error submitting form:", error);
       setLoading(false);
     }
   };
@@ -64,16 +67,16 @@ function InputForm() {
     <>
       <h1 className="text-white mb-4 text-4xl lg:text-6xl font-extrabold">
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-          Welcom to Fortune Teller,{' '}
+          Welcom to Fortune Teller,{" "}
         </span>
         <br />
         <TypeAnimation
           sequence={[
-            'Fill below form',
+            "Fill below form",
             5000,
-            'Talk to our AI agent',
+            "Talk to our AI agent",
             5000,
-            'Reveal your fortune',
+            "Reveal your fortune",
             5000,
           ]}
           wrapper="span"
@@ -83,13 +86,13 @@ function InputForm() {
       </h1>
       <div
         style={{
-          fontSize: '1.2rem',
-          fontWeight: '600',
-          color: '#eaeaea',
-          textAlign: 'center',
-          marginBottom: '20px',
-          lineHeight: '1.6',
-          letterSpacing: '0.5px',
+          fontSize: "1.2rem",
+          fontWeight: "600",
+          color: "#eaeaea",
+          textAlign: "center",
+          marginBottom: "20px",
+          lineHeight: "1.6",
+          letterSpacing: "0.5px",
         }}
         className="initial"
       >
@@ -176,7 +179,7 @@ function InputForm() {
         </div>
         <div className="submitButton">
           <button type="submit" className="btn btn-outline-info">
-            {loading ? 'Submitting...' : 'Submit'}
+            {loading ? "Submitting..." : "Submit"}
           </button>
         </div>
       </form>

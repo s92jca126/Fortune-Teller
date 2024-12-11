@@ -1,4 +1,3 @@
-version: "3.8"
 services:
   server:
     build:
@@ -7,6 +6,7 @@ services:
       - "8080:8080"
     volumes:
       - ./server:/app
+      - ./server/config/serviceAccountKey.json:/app/server/config/serviceAccountKey.json
     environment:
       - FLASK_APP=main.py
       - FLASK_ENV=development
