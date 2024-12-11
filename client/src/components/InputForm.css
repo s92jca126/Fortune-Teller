@@ -1,0 +1,74 @@
+.initial p::before,
+.initial p::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 2px;
+  background: linear-gradient(90deg, #6a5af9, #4b3df5);
+  margin: 10px auto;
+  border-radius: 1px;
+}
+
+.submitForm {
+  background-color: #2c2c2c;
+  padding: 30px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 588px;
+}
+
+.submitForm h1 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.submitForm label {
+  display: flex;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.submitForm input,
+.submitForm select,
+.submitForm textarea,
+.submitForm button {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 10px;
+  border: 1px solid #444;
+  border-radius: 5px;
+  background-color: #3c3c3c;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.submitForm input[type='date'],
+.submitForm input[type='time'],
+.submitForm select {
+  appearance: none;
+}
+
+.submitForm textarea {
+  resize: none;
+}
+
+.submitButton button {
+  background-color: #5c67f2;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submitButton button:hover {
+  background-color: #3b46d2;
+}
+
+.submitButton button:active {
+  transform: scale(0.98);
+}
+
+::placeholder {
+  color: #888;
+}
