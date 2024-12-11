@@ -1,8 +1,9 @@
 from flask import Blueprint, request, jsonify
-from firebase_admin import auth
+from firebase_admin import auth, firestore
 from custom_requests import get_prediction
+from datetime import datetime
 
-# Define the Blueprint
+
 bp = Blueprint("main", __name__)
 
 @bp.route("/")
@@ -37,6 +38,17 @@ def predict():
         # Ensure the prediction is a string (or appropriately formatted)
         if not isinstance(prediction, str):
             return jsonify({"error": "Invalid prediction format returned."}), 500
+
+        # Prepare log data for storage
+        log_data = {
+            "timestamp": datetime.utcnow().isoformat(),
+            "user_input": {
+                "question": question
+            },
+            "prediction": prediction
+        }
+        db = firestore.client()
+        db.collection("conversations").add(log_data)
 
         return jsonify({"prediction": prediction}), 200
 
