@@ -1,3 +1,4 @@
+version: "3.9"
 services:
   server:
     build:
@@ -9,12 +10,15 @@ services:
       - ./server/config/serviceAccountKey.json:/app/server/config/serviceAccountKey.json
     environment:
       - FLASK_APP=main.py
-      - FLASK_ENV=development
+      - FLASK_ENV=production
+    restart: unless-stopped
+
   client:
     build:
       context: ./client
     ports:
-      - "5173:5173"
+      - "80:5173" # map Vite's dev server to port 80 for public access
     environment:
-      - VITE_PORT=5173
-      - VITE_API_URL=http://localhost:8080
+      - VITE_PORT=80
+      - VITE_API_URL=http://64.23.163.14:8080 # point to the public IP of the server
+    restart: unless-stopped
