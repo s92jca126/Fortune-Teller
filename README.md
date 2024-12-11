@@ -1,6 +1,6 @@
 # Fortune-Teller
 
-http://64.23.163.14:5173/
+http://64.23.163.14/
 
 ## Run with Docker
 
