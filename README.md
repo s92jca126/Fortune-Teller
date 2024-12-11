@@ -18,7 +18,8 @@ http://64.23.163.14/
 
 ## Run Server
 
-set up `.env` first using `.env.example`
+1. set up `.env` first using `.env.example`.
+2. make sure `serviceAccountKey.json` is added to the `/config` directory.
 
 ```shell
 ❯ cd server
